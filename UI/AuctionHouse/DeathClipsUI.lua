@@ -15,7 +15,6 @@ local function updateSortArrows()
     OFSortButton_UpdateArrow(OFDeathClipsRatingSort, "clips", "rating")
     OFSortButton_UpdateArrow(OFDeathClipsWhereSort, "clips", "where")
     OFSortButton_UpdateArrow(OFDeathClipsClipSort, "clips", "clip")
-    OFSortButton_UpdateArrow(OFDeathClipsRateClipSort, "clips", "rate")
 end
 
 function OFAuctionFrameDeathClips_OnLoad()

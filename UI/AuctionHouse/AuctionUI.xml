@@ -1501,20 +1501,20 @@
                             </OnClick>
                         </Scripts>
                     </Button>
-                    <Button name="OFDeathClipsRateClipSort" inherits="OFAuctionSortButtonTemplate" text="L_RATE_CLIP">
+                    <Button name="OFDeathClipsRefreshButton" inherits="UIPanelButtonTemplate" text="REFRESH">
                         <Size>
-                            <AbsDimension x="100" y="19" />
+                            <AbsDimension x="80" y="22" />
                         </Size>
                         <Anchors>
-                            <Anchor point="LEFT" relativeTo="OFDeathClipsClipSort" relativePoint="RIGHT">
+                            <Anchor point="LEFT" relativeTo="OFAuctionFrameMoneyFrame" relativePoint="RIGHT">
                                 <Offset>
-                                    <AbsDimension x="-2" y="0" />
+                                    <AbsDimension x="10" y="0" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
                         <Scripts>
                             <OnClick>
-                                OFAuctionFrame_OnClickSortColumn("clips", "rate")
+                                OFAuctionFrameDeathClips_Update()
                             </OnClick>
                         </Scripts>
                     </Button>
