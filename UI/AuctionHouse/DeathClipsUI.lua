@@ -151,6 +151,19 @@ local function UpdateClipEntry(state, i, offset, button, clip, ratings, numBatch
     clipText:SetText(clipUrl)
     clipText:SetCursorPosition(0)
 
+    -- Make editable and save on change for live clips
+    if clip.id then
+        clipText:SetScript("OnEnterPressed", function(self)
+            self:ClearFocus()
+            local newUrl = self:GetText()
+            state:UpdateClipOverrides(clip.id, {clip = newUrl}, false)
+        end)
+        clipText:SetScript("OnEditFocusLost", function(self)
+            local newUrl = self:GetText()
+            state:UpdateClipOverrides(clip.id, {clip = newUrl}, false)
+        end)
+    end
+
     local ratingWidget = _G[buttonName.."Rating"].ratingWidget
     local offlineText = _G[buttonName.."RatingOfflineText"]
     local rateButton = _G[buttonName.."Rate"]
