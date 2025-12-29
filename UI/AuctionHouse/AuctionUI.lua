@@ -593,6 +593,17 @@ StaticPopupDialogs["OF_SELECT_AUCTION_MONEY"] = {
 function OFAuctionFrame_OnLoad (self)
     tinsert(UISpecialFrames, "OFAuctionFrame")
 
+    self:SetMovable(true)
+    self:SetClampedToScreen(true)
+    self:SetFrameStrata("HIGH")
+
+    local moveButton = _G.OFAuctionFrameMoveButton
+    if moveButton then
+        moveButton:SetFrameLevel(self:GetFrameLevel() + 1)
+    else
+        print("Move button not found")
+    end
+
 	-- Tab Handling code
 	PanelTemplates_SetNumTabs(self, 8);
 	PanelTemplates_SetTab(self, 1);
@@ -623,37 +634,43 @@ function OFAuctionFrame_OnLoad (self)
 	end
 end
 
+
+
+-- 2. FUNÇÕES DE EXIBIÇÃO ATUALIZADAS
 function OFAuctionFrame_Show()
-	if ( OFAuctionFrame:IsShown() ) then
-		OFAuctionFrameBrowse_Update();
-		OFAuctionFrameBid_Update();
-		OFAuctionFrameAuctions_Update();
-	else
-		ShowUIPanel(OFAuctionFrame);
+    if ( OFAuctionFrame:IsShown() ) then
+        OFAuctionFrameBrowse_Update()
+        OFAuctionFrameBid_Update()
+        OFAuctionFrameAuctions_Update()
+    else
+        -- IMPORTANTE: Usamos :Show() em vez de ShowUIPanel para permitir movimento livre
+        OFAuctionFrame:Show()
 
-		OFAuctionFrameBrowse.page = 0;
-		FauxScrollFrame_SetOffset(OFBrowseScrollFrame,0);
+        OFAuctionFrameBrowse.page = 0
+        FauxScrollFrame_SetOffset(OFBrowseScrollFrame, 0)
 
-		OFAuctionFrameBid.page = 0;
-		FauxScrollFrame_SetOffset(OFBidScrollFrame,0);
-		GetBidderAuctionItems(OFAuctionFrameBid.page);
+        OFAuctionFrameBid.page = 0
+        FauxScrollFrame_SetOffset(OFBidScrollFrame, 0)
+        -- GetBidderAuctionItems(OFAuctionFrameBid.page) -- Ative se a função estiver pronta
 
-		OFAuctionFrameAuctions.page = 0;
-		FauxScrollFrame_SetOffset(OFAuctionsScrollFrame,0);
+        OFAuctionFrameAuctions.page = 0
+        FauxScrollFrame_SetOffset(OFAuctionsScrollFrame, 0)
 
-		OFBrowsePrevPageButton.isEnabled = false;
-		OFBrowseNextPageButton.isEnabled = false;
-		OFBrowsePrevPageButton:Disable();
-		OFBrowseNextPageButton:Disable();
-		
-		if ( not OFAuctionFrame:IsShown() ) then
-			CloseAuctionHouse();
-		end
-	end
+        OFBrowsePrevPageButton.isEnabled = false
+        OFBrowseNextPageButton.isEnabled = false
+        OFBrowsePrevPageButton:Disable()
+        OFBrowseNextPageButton:Disable()
+        
+        -- O código abaixo fecha a AH original se o seu frame abrir
+        if ( not OFAuctionFrame:IsShown() ) then
+            CloseAuctionHouse()
+        end
+    end
 end
 
 function OFAuctionFrame_Hide()
-	HideUIPanel(OFAuctionFrame);
+    -- Usamos :Hide() em vez de HideUIPanel
+    OFAuctionFrame:Hide()
 end
 
 local initialTab = TAB_BROWSE

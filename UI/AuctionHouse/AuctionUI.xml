@@ -1,5 +1,5 @@
 <Ui xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\..\Blizzard_SharedXML\UI.xsd" xmlns="http://www.blizzard.com/wow/ui/">
-	<Frame name="OFAuctionFrame" hidden="true" parent="UIParent" toplevel="true" enableMouse="true">
+	<Frame name="OFAuctionFrame" hidden="true" parent="UIParent" enableMouse="true">
 		<Size x="832" y="447" />
 		<Anchors>
 			<Anchor y="-104" point="TOPLEFT" />
@@ -2544,6 +2544,41 @@
             <Frame name="OFAuctionFrameSettings" inherits="OFSettings_Template" hidden="true">
             </Frame>
             <Frame name="OFAuctionFrameAthene" inherits="OFAtheneFrameTemplate" hidden="true" />
+            <Frame name="OFAuctionFrameMoveButton" enableMouse="true">
+                <Size x="832" y="50" />
+                <Anchors>
+                    <Anchor point="TOPLEFT" />
+                </Anchors>
+                <Scripts>
+                    <OnMouseDown>
+                        if button == "LeftButton" then
+                            self.isMoving = true
+                            local scale = UIParent:GetEffectiveScale()
+                            self.startX, self.startY = GetCursorPosition()
+                            self.startX = self.startX / scale
+                            self.startY = self.startY / scale
+                            local parent = self:GetParent()
+                            self.frameX, self.frameY = parent:GetCenter()
+							parent:ClearAllPoints()
+                        end
+                    </OnMouseDown>
+                    <OnMouseUp>
+                        self.isMoving = false
+                    </OnMouseUp>
+                    <OnUpdate>
+                        if self.isMoving then
+                            local scale = UIParent:GetEffectiveScale()
+                            local curX, curY = GetCursorPosition()
+                            curX = curX / scale
+                            curY = curY / scale
+                            local deltaX = curX - self.startX
+                            local deltaY = curY - self.startY
+                            local parent = self:GetParent()
+                            parent:SetPoint("CENTER", UIParent, "BOTTOMLEFT", self.frameX + deltaX, self.frameY + deltaY)
+                        end
+                    </OnUpdate>
+                </Scripts>
+            </Frame>
         </Frames>
         <Scripts>
 			<OnLoad function="OFAuctionFrame_OnLoad" />

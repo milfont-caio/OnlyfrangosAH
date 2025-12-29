@@ -1,9 +1,9 @@
 ## Interface: 11505, 11506
 ## Version: 1.1.15
-## Title: Go Again AH
-## Notes: Guild Auction House for |cFFFF0000Go Again|r
-## Notes-esES: Casa de subastas para |cFFFF0000Go Again|r
-## Notes-esMX: Casa de subastas para |cFFFF0000Go Again|r
+## Title: Only Frangos AH
+## Notes: Guild Auction House for |cFFFF0000Only Frangos|r
+## Notes-esES: Casa de subastas para |cFFFF0000Only Frangos|r
+## Notes-esMX: Casa de subastas para |cFFFF0000Only Frangos|r
 ## Author: Athene
 ## SavedVariables: AuctionHouseDBSaved, AHConfigSaved, LiveDeathClips, PlayerPrefsSaved, DeathClipReviewsSaved
 ## SavedVariablesPerCharacter: CharacterPrefsSaved
